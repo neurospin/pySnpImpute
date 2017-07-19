@@ -255,8 +255,8 @@ def main(outdir, nb_processes, bcftools_exe):
                 "super-population. Might take a while...")
     pool = multiprocessing.Pool(nb_processes)
     results = pool.map(unpacker, list_kwargs)
-    pool.close()
     pool.join()
+    pool.close()
 
     # Create a table file describing the reference panel
     ref_panel_txt = os.path.join(impute2_dir, "ref_panel.txt")
