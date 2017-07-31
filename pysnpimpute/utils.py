@@ -80,7 +80,7 @@ def extract_chromosome(bfile, chromosome, build=None, outdir=None,
         To activate logging, pass a logging object.
     """
 
-     # Check arguments and installation of required softwares
+    # Check arguments and installation of required softwares
     check_chromosome_name(chromosome)
     if chromosome in pysnpimpute.X_REGIONS:
         check_genomic_build_version(build)
