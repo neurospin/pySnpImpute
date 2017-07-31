@@ -149,6 +149,7 @@ def call_hopla(phased_dataset, ref_panel, build, outdir, nb_processes, Ne,
         except AutosomeNotImputable as e:
             if verbose:
                 logger.warning(e.message)
+            continue
 
         chrom_outdir = os.path.join(outdir, "chr{}".format(c))
         if not os.path.isdir(chrom_outdir):

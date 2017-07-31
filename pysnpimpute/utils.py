@@ -219,8 +219,8 @@ def chromosome_segmentation(chromosome, known_hap, ref_legend, build,
     # The chunking is simpler.
     if chromosome in {pysnpimpute.X_PAR1, pysnpimpute.X_PAR2}:
         chunks, known_hap_counts, ref_hap_counts = \
-            chunk_positions(df_hap["pos"].tolist(), df_ref["pos"].tolist(),
-                            chunksize_kb, N)
+            chunk_positions(chromosome, df_hap["pos"].tolist(),
+                            df_ref["pos"].tolist(), chunksize_kb, N)
 
     else:
         # For chromosome or regions where there is a centromere to handle,
