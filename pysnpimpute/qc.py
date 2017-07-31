@@ -114,36 +114,3 @@ def clean_data(bfile, use_imputed_sex=False, min_maf=0.01, min_vcallrate=0.95,
     run_cmd_and_check(cmd, logger=logger)
 
     return bfile_cleaned
-
-
-def mds_analysis(bfile, mind=0.05, mds_plot=4, outdir=None, plink_exe="plink",
-                 logger=None):
-    """
-    Run MDS analysis using Plink. Set mds_plot for the number of directions.
-    """
-
-    # Check that Plink is installed
-    check_installation_of_required_softwares(dict(Plink=plink_exe))
-
-    if bfile.endswith(".bed"):
-        bfile = bfile[:-len(".bed")]
-
-    # Check existence of input files
-    required_files = [bfile + ".bed", bfile + ".bim", bfile + ".fam"]
-    check_existence_of_paths(required_files)
-
-    if outdir is None:
-        mdsfile = bfile + ".mds"
-    else:
-        mdsfile = os.path.join(outdir, os.path.basename(bfile) + ".mds")
-
-    cmd = [plink_exe,
-           "--bfile",    bfile,
-           "--cluster",
-           "--mind",     str(mind),
-           "--mds-plot", str(mds_plot),
-           "--out",      mdsfile,
-           "--noweb"]
-    run_cmd_and_check(cmd, logger=logger)
-
-    return mdsfile
