@@ -182,7 +182,9 @@ def chunk_positions(region, known_hap_positions, ref_panel_positions,
             nb_hap += nb_hap_left
             nb_ref += nb_ref_left
 
-        chunk = (start, end)
+        # Force type int, instead of numpy.int, otherwise by comparing them we
+        # get numpy._bool and not bool, which is not handled by Hopla
+        chunk = (int(start), int(end))
         chunks += [chunk]
         hap_counts += [nb_hap]
         ref_counts += [nb_ref]
