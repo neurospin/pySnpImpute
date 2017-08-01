@@ -115,13 +115,6 @@ else:
     logger = None
 kwargs["logger"] = logger
 
-# TODO: remove this hack when Hopla handles "store_true"
-to_bp = kwargs["to_bp"]
-from_bp = kwargs["from_bp"]
-buffer_kb = kwargs["buffer_kb"]
-if (to_bp - from_bp) + 2 * (buffer_kb * 1000) > (7 * 10**6):
-    kwargs["allow_large_regions"] = True
-
 # Run preprocessing
 try:
     impute(**kwargs)

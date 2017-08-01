@@ -165,8 +165,13 @@ def call_hopla(phased_dataset, ref_panel, build, outdir, nb_processes, Ne,
             iter_args["l"] += [rleg]
             iter_args["r"] += [rmap]
             iter_args["o"] += [chrom_outdir]
-#            iter_args["g"] += [(to_bp-from_bp) > 7*10**7]  # is large region
-#            iter_args["q"] += [to_impute]
+            # Impute2 requires a flag when the imputation is to be done on
+            # a region (including the 2 buffers) larger than 7Mb
+            is_large_region = \
+                ((to_bp - from_bp) + 2 * (buffer_kb * 1000)) > (7 * 10**6)
+            # Check type: Hopla needs a boolean and not a numpy._bool
+            assert isinstance(is_large_region, bool)
+            iter_args["g"] += [is_large_region]
 
             # Infer path of output imputed chunk
             prefix = os.path.basename(hap).split(".gz")[0].split(".hap")[0]
